@@ -35,11 +35,12 @@
           index -= 1;
         }
 
-          var tweet = streams.home[5];
+        $button.on('click', function () {
+          var tweet = streams.home[streams.home.length-1];
           var $tweet = $('<div class="tweet"></div>');
           $tweet.append('<span class="user">@' + tweet.user + '</span> ' + tweet.message);
           $tweet.appendTo($feed);
-
+        });
 
       });
 
