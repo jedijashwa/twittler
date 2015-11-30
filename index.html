@@ -4,6 +4,7 @@
     <link rel="stylesheet" type"text/css" href="lib/css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     <script src="jquery.js"></script>
+    <script src="lib/jquery.timeago.js"></script>
     <script src="data_generator.js"></script>
     <title>Twittler</title>
   </head>
@@ -20,26 +21,38 @@
 
         // adds a button to refresh the feed
         // as of now this button has no functionality
-        $feed.append('<button name="refresh">New Tweets</button>');
-        var $button = $('button');
+        $feed.append('<div><button name="refresh">New Tweets</button></div>');
+        var $refresh = $('button[name="refresh"]');
 
-        // fills the starting feed with tweets from streams
-        var index = streams.home.length - 1;
-        while(index >= 0){
+        // tweet loading functionality in function loadTweet
+        var loadTweet = function (index){
           var tweet = streams.home[index];
-          // added a class for tweet
-          var $tweet = $('<div class="tweet"></div>');
+          // added a class for tweet-box
+          var $tweet = $('<div class="tweet-box new"></div>');
+          // creates a timestamp using the timeago library from http://timeago.yarp.com/
+          var timestamp = '</div><div class="time">' + jQuery.timeago(tweet.created_at) + '</div>';
           // put user in a span with class user
-          $tweet.append('<span class="user">@' + tweet.user + '</span> ' + tweet.message);
-          $tweet.appendTo($feed);
+          $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
+            timestamp);
+          $refresh.after($tweet);
+        };
+
+        // variable to store the number of loaded tweets
+        var loaded = streams.home.length;
+        // fills the starting feed with tweets from streams
+        var index = loaded - 1;
+        while(index >= 0){
+          loadTweet(index);
+          $('.new').removeClass('new');
           index -= 1;
         }
 
-        $button.on('click', function () {
-          var tweet = streams.home[streams.home.length-1];
-          var $tweet = $('<div class="tweet"></div>');
-          $tweet.append('<span class="user">@' + tweet.user + '</span> ' + tweet.message);
-          $tweet.appendTo($feed);
+        $refresh.on('click', function () {
+          var total = streams.home.length;
+          for (var i = total-1; i >= loaded; i--){
+            loadTweet(i);
+            $('.new').fadeIn(800);
+          };
         });
 
       });
