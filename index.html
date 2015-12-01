@@ -26,8 +26,9 @@
 
         // adds a button to refresh the feed
         // as of now this button has no functionality
-        $feed.append('<div><button name="refresh">New Tweets</button></div>');
+        $feed.append('<div><button name="refresh">Get Tweets</button><button name="newTweet">New Tweet</button></div>');
         var $refresh = $('button[name="refresh"]');
+        var $newTweet = $('button[name="newTweet"]');
 
         // tweet loading functionality in function loadTweet
         var loadTweet = function (index){
@@ -42,7 +43,7 @@
           // put user in a span with class user
           $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
             '</div>' + timestamp);
-          $refresh.after($tweet);
+          $newTweet.after($tweet);
         };
 
         // variable to store the number of loaded tweets
@@ -78,18 +79,8 @@
         $refresh.on('click', refresh);
         $twittler.on('click', refresh);
 
-        // make refresh button appear active when either button or 'Twittler' is hovered
-        $twittler.on('mouseover', hoverRefresh);
-        $refresh.on('mouseover', normalRefresh);
-
-        // undo hovered stated
-        $twittler.on('mouseout', normalRefresh);
-        $refresh.on('mouseout', normalRefresh);
-
-
-
         // action for when user name is clicked
-        $('.user').on('click', function () {
+        $('.user a').on('click', function () {
           // sets selectedUser variable to user clicked
           var selectedUser = $(this).closest('.tweet-box').data('user');
 
