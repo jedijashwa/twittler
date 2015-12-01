@@ -65,18 +65,7 @@ button {
 	padding: 10px;
 	margin-left: 5px;
 	top: -10px;
-}
-
-button:hover {
-	background-color: grey;
-}
-
-button:active {
-	font-weight: normal;
-}
-
-button[name='refresh'] {
-	width: 100px;
+	width: 120px;
 }
 
 .feed {
@@ -131,4 +120,8 @@ h1 {
 	text-align: center;
 	font-size: 65px;
 	font-weight: lighter;
+}
+
+a, button, .user {
+	cursor: pointer;
 }
