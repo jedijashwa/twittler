@@ -14,7 +14,7 @@
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('<h1>Twittler</h1>');
+        $body.html('<h1><a>Twittler</a></h1>');
 
         // gathers all the tweet divs into a div called feed
         $body.append('<div class="feed"></feed>');
@@ -70,8 +70,23 @@
           });
         };
 
+        var $twittler = $('h1 a');
+        var hoverRefresh = function () { $refresh.css('background-color', "grey"); };
+        var normalRefresh = function () { $refresh.css('background-color', "lightgrey"); };
+
+        // refresh when either refresh button or 'Twittler' is pressed.
         $refresh.on('click', refresh);
-        $('h1').on('click', refresh);
+        $twittler.on('click', refresh);
+
+        // make refresh button appear active when either button or 'Twittler' is hovered
+        $twittler.on('mouseover', hoverRefresh);
+        $refresh.on('mouseover', normalRefresh);
+
+        // undo hovered stated
+        $twittler.on('mouseout', normalRefresh);
+        $refresh.on('mouseout', normalRefresh);
+
+
 
         // action for when user name is clicked
         $('.user').on('click', function () {
