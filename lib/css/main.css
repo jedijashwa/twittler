@@ -124,7 +124,7 @@ button {
 }
 
 .new {
-	opacity: 0;
+	display: none;
 }
 
 h1 {

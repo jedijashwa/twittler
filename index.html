@@ -55,8 +55,7 @@
           loadTweet(index);
           index -= 1;
         }
-        $('.new').animate({opacity: '1'});
-        $('.new').removeClass('new');
+        $('.new').fadeIn();
 
         // function for getting new tweets.
         var refresh = function () {
@@ -66,12 +65,10 @@
             loadTweet(i);
           };
           loaded = total;
-          $feed.animate({height: feedHeight()}, function (){
-           $('.tweet-box').animate({top: tBoxTop}, function () {
-              $('.tweet-box').css({top: -5});
-             $('.new').animate({opacity: '1'});
-              $('.new').removeClass('new');
-           });
+          $feed.animate({height: feedHeight()});
+          $('.tweet-box').animate({top: tBoxTop}, function () {
+            $('.tweet-box').css({top: -5});
+            $('.new').fadeIn();
           });
         };
 
