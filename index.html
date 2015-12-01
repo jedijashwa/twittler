@@ -18,6 +18,10 @@
         // gathers all the tweet divs into a div called feed
         $body.append('<div class="feed"></feed>');
         var $feed = $('.feed');
+        var feedHeight = function() {
+          return (loaded + 1)* 39;
+        }
+
 
         // adds a button to refresh the feed
         // as of now this button has no functionality
@@ -30,7 +34,7 @@
           // added a class for tweet-box
           var $tweet = $('<div class="tweet-box new"></div>');
           // creates a timestamp using the timeago library from http://timeago.yarp.com/
-          var timestamp = '</div><div class="time">' + jQuery.timeago(tweet.created_at) + '</div>';
+          var timestamp = '</div><div class="time">' + /*jQuery.timeago*/(tweet.created_at) + '</div>';
           // put user in a span with class user
           $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
             timestamp);
@@ -49,10 +53,16 @@
 
         $refresh.on('click', function () {
           var total = streams.home.length;
+          var tBoxTop = -5 + 39 * (total-loaded);
           for (var i = total-1; i >= loaded; i--){
             loadTweet(i);
-            $('.new').fadeIn(800);
           };
+          loaded = total;
+          $feed.animate({height: feedHeight()});
+          $('.tweet-box').animate({top: tBoxTop}, function () {
+            $('.tweet-box').css({top: -5});
+            $('.new').fadeIn();
+          });
         });
 
       });

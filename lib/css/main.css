@@ -86,12 +86,13 @@ button[name='refresh'] {
 	background-color: #AAC1E7;
 	border-radius: 7px;
 	max-width: 620px;
+	height: 400px;
 }
 
 .tweet-box {
 	display: block;
 	position: relative;
-	top: -10px;
+	top: -5px;
 	max-width: 600px;
 	min-width: 200px;
 	background-color: white;
