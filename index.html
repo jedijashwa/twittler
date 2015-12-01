@@ -14,7 +14,7 @@
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
+        $body.html('<h1>Twittler</h1>');
 
         // gathers all the tweet divs into a div called feed
         $body.append('<div class="feed"></feed>');
@@ -33,7 +33,7 @@
         var loadTweet = function (index){
           var tweet = streams.home[index];
           // added a class for tweet-box
-          var $tweet = $('<div class="tweet-box new"></div>');
+          var $tweet = $('<div class="tweet-box new" data-user="'+tweet.user+'"></div>');
 
           // creates a timestamp using the livestamp and moemnt libraries from 
           // http://mattbradley.github.io/livestampjs/ and http://momentjs.com/ respectivly
@@ -69,6 +69,17 @@
             $('.tweet-box').css({top: -5});
             $('.new').fadeIn();
           });
+        });
+
+        // action for when user name is clicked
+        $('.user').on('click', function () {
+          // sets selectedUser variable to user clicked
+          var selectedUser = $(this).closest('.tweet-box').data('user');
+
+          // goes through all
+          $('.tweet-box').filter(function () {
+            return $(this).data('user') != selectedUser;
+          }).toggle();
         });
 
       });
