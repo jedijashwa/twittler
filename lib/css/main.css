@@ -52,6 +52,7 @@ table {
 body {
 	background-color: #3C5071;
 	font-family: 'Roboto Condensed', sans-serif;
+	opacity: 1; 
 }
 
 button {
@@ -124,4 +125,21 @@ h1 {
 
 a, button, .user {
 	cursor: pointer;
+}
+
+.new-tweet-box {
+	position: fixed;
+	background-color: white;
+	width: 400px;
+	height: 250px;
+	border-radius: 5px;
+	z-index: 2;
+	top: -150px;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -125px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 10px 10px 5px #545454;
+	box-shadow: 10px 10px 5px rgba(0,0,0, .4);
+	opacity: 1;
 }
