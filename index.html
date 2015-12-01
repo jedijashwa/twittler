@@ -65,7 +65,8 @@
             loadTweet(i);
           };
           loaded = total;
-          $feed.animate({height: feedHeight()});
+          var h = feedHeight();
+          $feed.animate({height: h});
           $('.tweet-box').animate({top: tBoxTop}, function () {
             $('.tweet-box').css({top: -5});
             $('.new').fadeIn();
