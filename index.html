@@ -13,6 +13,7 @@
     <script>
 
       $(document).ready(function(){
+        var visitor = 'YOU';
         var $body = $('body');
         $body.html('<h1><a>Twittler</a></h1>');
 
@@ -26,8 +27,9 @@
 
         // adds a button to refresh the feed
         // as of now this button has no functionality
-        $feed.append('<div><button name="refresh">New Tweets</button></div>');
+        $feed.append('<div><button name="refresh">Get Tweets</button><button name="newTweet">New Tweet</button></div>');
         var $refresh = $('button[name="refresh"]');
+        var $newTweet = $('button[name="newTweet"]');
 
         // tweet loading functionality in function loadTweet
         var loadTweet = function (index){
@@ -42,7 +44,7 @@
           // put user in a span with class user
           $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
             '</div>' + timestamp);
-          $refresh.after($tweet);
+          $newTweet.after($tweet);
         };
 
         // variable to store the number of loaded tweets
@@ -78,18 +80,14 @@
         $refresh.on('click', refresh);
         $twittler.on('click', refresh);
 
-        // make refresh button appear active when either button or 'Twittler' is hovered
-        $twittler.on('mouseover', hoverRefresh);
-        $refresh.on('mouseover', normalRefresh);
-
-        // undo hovered stated
-        $twittler.on('mouseout', normalRefresh);
-        $refresh.on('mouseout', normalRefresh);
-
-
+        // function for returning to top of the page
+        var toTop = function () {
+          $body.animate({ scrollTop: 0 });
+        };
 
         // action for when user name is clicked
-        $('.user').on('click', function () {
+        $feed.on('click', '.user', function () {
+
           // sets selectedUser variable to user clicked
           var selectedUser = $(this).closest('.tweet-box').data('user');
 
@@ -97,8 +95,69 @@
           $('.tweet-box').filter(function () {
             return $(this).data('user') != selectedUser;
           }).toggle();
+          toTop();
         });
 
+        //this generates the newTweetBox
+        $body.prepend('<div class="new-tweet-box"><form id="newTweetForm">'+
+          '<textarea name="words" id="words" maxlength="200" rows="4" cols="50">'+
+          '</textarea><div class="chars">0</div></form><div>'+
+          '<button name="cancel">Cancel</button><button name="submit">Tweet</button></div><div>');
+
+        // update remaining characters at every key raise.
+        $body.on('keyup', function () {
+          var count = document.getElementById("words").value.length;
+          $('.chars').text(140-count);
+          if (140-count < 0) {
+            $('.chars').css({color: 'red'});
+          } else {
+            $('.chars').css({color: 'black'})
+          };
+        });
+
+        // set quick references
+        var $newTweetBox = $('.new-tweet-box');
+        var $submit = $('button[name="submit"]');
+        var $cancel = $('button[name="cancel"]');
+
+        // function for when new tweet button is pressed
+        var showNewTweet = function () {
+          // animate newTweetBox dropping down
+          $newTweetBox.animate({top: '300px'});
+          // dim background and logo
+          $feed.animate({opacity: '.1'});
+          $twittler.animate({opacity: '.6'});
+          $body.css({'background-color': '#232f43'});
+          // set remaining character indicator to 140
+          $('.chars').text(140);
+        };
+
+        // function for clicking away from newTweetBox
+        var hideNewTweet = function () {
+          // slide box back off screen
+          $newTweetBox.animate({top: '-150px'});
+          // undim background and logo
+          $feed.animate({opacity: '1'});
+          $twittler.animate({opacity: '1'});
+          $body.css({'background-color': '#3C5071'});
+
+          // reset form
+          document.getElementById("newTweetForm").reset();
+        };
+
+        // functoin for submitting new tweet
+        var submitNewTweet = function(){
+          // calls write tweet function with content of textarea
+          writeTweet(document.getElementById("words").value);
+          // hides the newTweetBox then refreshes feed
+          hideNewTweet();
+          refresh();
+        };
+
+        $newTweet.on('click', showNewTweet); 
+        $twittler.on('click', hideNewTweet);
+        $cancel.on('click', hideNewTweet);
+        $submit.on('click', submitNewTweet);
       });
 
     </script>

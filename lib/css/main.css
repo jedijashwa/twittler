@@ -52,6 +52,9 @@ table {
 body {
 	background-color: #3C5071;
 	font-family: 'Roboto Condensed', sans-serif;
+	-webkit-transition: background-color .5s;
+       -moz-transition: background-color .5s;
+            transition: background-color .5s;
 }
 
 button {
@@ -64,8 +67,15 @@ button {
 	border: 0;
 	padding: 10px;
 	margin-left: 5px;
-	top: -10px;
 	width: 120px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 5px 5px 5px #545454;
+	box-shadow: 5px 5px 5px rgba(0,0,0, .4);
+}
+.feed button {top: -10px;}
+.new-tweet-box button {
+	top: -5px;
+	left: 95px;
 }
 
 button:hover{
@@ -80,6 +90,9 @@ button:hover{
 	border-radius: 7px;
 	max-width: 620px;
 	height: 400px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 5px 5px 5px #545454;
+	box-shadow: 5px 5px 5px rgba(0,0,0, .4);
 }
 
 .tweet-box {
@@ -124,8 +137,54 @@ h1 {
 	text-align: center;
 	font-size: 65px;
 	font-weight: lighter;
+	/* box shaddow to be used if rgba isn't supported */
+	text-shadow: 5px 5px 5px #545454;
+	text-shadow: 5px 5px 5px rgba(0,0,0, .4);
 }
 
 a, button, .user {
 	cursor: pointer;
 }
+
+.new-tweet-box {
+	position: fixed;
+	background-color: white;
+	width: 350px;
+	height: 142px;
+	border-radius: 5px;
+	z-index: 2;
+	top: -59px;
+	left: 50%;
+	margin-left: -175px;
+	margin-top: -125px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 10px 10px 5px #545454;
+	box-shadow: 10px 10px 5px rgba(0,0,0, .4);
+	opacity: 1;
+}
+
+form {
+	padding: 10px;
+	text-align: center;
+}
+
+textarea {
+	font-size: 14px;
+	font-family: 'Roboto Condensed', sans-serif;
+	padding: .3em;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+textarea {margin-top: 5px}
+
+.chars {
+	text-align: right;
+	color: black;
+}
+
+
+
+
+
+
