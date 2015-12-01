@@ -4,7 +4,8 @@
     <link rel="stylesheet" type"text/css" href="lib/css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     <script src="lib/jquery.js"></script>
-    <script src="lib/jquery.timeago.js"></script>
+    <script src="lib/moment.js"></script>
+    <script src="lib/livestamp.min.js"></script>
     <script src="lib/data_generator.js"></script>
     <title>Twittler</title>
   </head>
@@ -33,11 +34,18 @@
           var tweet = streams.home[index];
           // added a class for tweet-box
           var $tweet = $('<div class="tweet-box new"></div>');
-          // creates a timestamp using the timeago library from http://timeago.yarp.com/
-          var timestamp = '</div><div class="time">' + /*jQuery.timeago*/(tweet.created_at) + '</div>';
+          
+          // creates a timestamp using the livestamp and moemnt libraries from 
+          // http://mattbradley.github.io/livestampjs/ and http://momentjs.com/ respectivly
+          var timestamp = '<div class="time"><span data-livestamp="'+tweet.created_at+'"></span></div>';
+
+          // below is the version of timestamp that just used moment.js, left in for now as livestamp is
+          // loading slowly
+          //var timestamp = '<div class="time'> + moment(tweet.created_at).fromNow() + '</div>';
+
           // put user in a span with class user
           $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
-            timestamp);
+            '</div>' + timestamp);
           $refresh.after($tweet);
         };
 
@@ -54,7 +62,7 @@
         $refresh.on('click', function () {
           var total = streams.home.length;
           var tBoxTop = -5 + 39 * (total-loaded);
-          for (var i = total-1; i >= loaded; i--){
+          for (var i = loaded; i < total; i++){
             loadTweet(i);
           };
           loaded = total;
