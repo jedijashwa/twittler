@@ -80,8 +80,14 @@
         $refresh.on('click', refresh);
         $twittler.on('click', refresh);
 
+        // function for returning to top of the page
+        var toTop = function () {
+          $body.animate({ scrollTop: 0 });
+        };
+
         // action for when user name is clicked
-        $('.user').on('click', function () {
+        $feed.on('click', '.user', function () {
+
           // sets selectedUser variable to user clicked
           var selectedUser = $(this).closest('.tweet-box').data('user');
 
@@ -89,6 +95,7 @@
           $('.tweet-box').filter(function () {
             return $(this).data('user') != selectedUser;
           }).toggle();
+          toTop();
         });
 
         //this generates the newTweetBox
