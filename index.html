@@ -34,14 +34,10 @@
           var tweet = streams.home[index];
           // added a class for tweet-box
           var $tweet = $('<div class="tweet-box new"></div>');
-          
+
           // creates a timestamp using the livestamp and moemnt libraries from 
           // http://mattbradley.github.io/livestampjs/ and http://momentjs.com/ respectivly
-          var timestamp = '<div class="time"><span data-livestamp="'+tweet.created_at+'"></span></div>';
-
-          // below is the version of timestamp that just used moment.js, left in for now as livestamp is
-          // loading slowly
-          //var timestamp = '<div class="time'> + moment(tweet.created_at).fromNow() + '</div>';
+          var timestamp = '<div class="time">&nbsp;<span data-livestamp="'+tweet.created_at+'"></span></div>';
 
           // put user in a span with class user
           $tweet.append('<div><span class="user">@' + tweet.user + '</span> ' + tweet.message +
@@ -55,9 +51,11 @@
         var index = loaded - 1;
         while(index >= 0){
           loadTweet(index);
-          $('.new').removeClass('new');
           index -= 1;
         }
+        $('.new').fadeIn();
+
+
 
         $refresh.on('click', function () {
           var total = streams.home.length;
