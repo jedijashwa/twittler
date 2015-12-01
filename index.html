@@ -54,7 +54,8 @@
           loadTweet(index);
           index -= 1;
         }
-        $('.new').fadeIn();
+        $('.new').animate({opacity: '1'});
+        $('.new').removeClass('new');
 
         // function for getting new tweets.
         var refresh = function () {
@@ -64,10 +65,12 @@
             loadTweet(i);
           };
           loaded = total;
-          $feed.animate({height: feedHeight()});
-          $('.tweet-box').animate({top: tBoxTop}, function () {
-            $('.tweet-box').css({top: -5});
-            $('.new').fadeIn();
+          $feed.animate({height: feedHeight()}, function (){
+           $('.tweet-box').animate({top: tBoxTop}, function () {
+              $('.tweet-box').css({top: -5});
+             $('.new').animate({opacity: '1'});
+              $('.new').removeClass('new');
+           });
           });
         };
 
@@ -90,15 +93,29 @@
           }).toggle();
         });
 
-        $body.prepend('<div class="new-tweet-box"></div>');
+        $body.prepend('<div class="new-tweet-box"><button name="cancel">Cancel</button>'+
+          '<button name="submit">Tweet</button></div>');
         var $newTweetBox = $('.new-tweet-box');
-        var newTweet = function () {
+        var $submit = $('button[name="submit"]');
+        var $cancel = $('button[name="cancel"]');
+        var showNewTweet = function () {
           $newTweetBox.animate({top: '50%'});
           $feed.animate({opacity: '.1'});
-          $newTweetBox.css({opacity: '1'});
+          $twittler.animate({opacity: '.6'});
+          $body.css({'background-color': '#232f43'});
         };
 
-        $newTweet.on('click', newTweet); 
+        var hideNewTweet = function () {
+          $newTweetBox.animate({top: '-150px'});
+          $feed.animate({opacity: '1'});
+          $twittler.animate({opacity: '1'});
+          $body.css({'background-color': '#3C5071'});
+
+        };
+
+        $newTweet.on('click', showNewTweet); 
+        $twittler.on('click', hideNewTweet);
+        $cancel.on('click', hideNewTweet);*/
       });
 
     </script>

@@ -52,7 +52,9 @@ table {
 body {
 	background-color: #3C5071;
 	font-family: 'Roboto Condensed', sans-serif;
-	opacity: 1; 
+	-webkit-transition: background-color .5s;
+       -moz-transition: background-color .5s;
+            transition: background-color .5s;
 }
 
 button {
@@ -65,8 +67,16 @@ button {
 	border: 0;
 	padding: 10px;
 	margin-left: 5px;
-	top: -10px;
 	width: 120px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 5px 5px 5px #545454;
+	box-shadow: 5px 5px 5px rgba(0,0,0, .4);
+}
+.feed button {top: -10px;}
+.new-tweet-box button {
+	top: 221px;
+	left: 145px;
+
 }
 
 .feed {
@@ -77,6 +87,9 @@ button {
 	border-radius: 7px;
 	max-width: 620px;
 	height: 400px;
+	/* box shaddow to be used if rgba isn't supported */
+	box-shadow: 5px 5px 5px #545454;
+	box-shadow: 5px 5px 5px rgba(0,0,0, .4);
 }
 
 .tweet-box {
@@ -112,7 +125,7 @@ button {
 }
 
 .new {
-	display: none;
+	opacity: 0;
 }
 
 h1 {
@@ -121,6 +134,9 @@ h1 {
 	text-align: center;
 	font-size: 65px;
 	font-weight: lighter;
+	/* box shaddow to be used if rgba isn't supported */
+	text-shadow: 5px 5px 5px #545454;
+	text-shadow: 5px 5px 5px rgba(0,0,0, .4);
 }
 
 a, button, .user {
