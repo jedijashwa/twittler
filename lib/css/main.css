@@ -74,9 +74,8 @@ button {
 }
 .feed button {top: -10px;}
 .new-tweet-box button {
-	top: 221px;
-	left: 145px;
-
+	top: -5px;
+	left: 95px;
 }
 
 .feed {
@@ -146,16 +145,42 @@ a, button, .user {
 .new-tweet-box {
 	position: fixed;
 	background-color: white;
-	width: 400px;
-	height: 250px;
+	width: 350px;
+	height: 142px;
 	border-radius: 5px;
 	z-index: 2;
-	top: -150px;
+	top: -59px;
 	left: 50%;
-	margin-left: -200px;
+	margin-left: -175px;
 	margin-top: -125px;
 	/* box shaddow to be used if rgba isn't supported */
 	box-shadow: 10px 10px 5px #545454;
 	box-shadow: 10px 10px 5px rgba(0,0,0, .4);
 	opacity: 1;
 }
+
+form {
+	padding: 10px;
+	text-align: center;
+}
+
+textarea {
+	font-size: 14px;
+	font-family: 'Roboto Condensed', sans-serif;
+	padding: .3em;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+textarea {margin-top: 5px}
+
+.chars {
+	text-align: right;
+	color: black;
+}
+
+
+
+
+
+

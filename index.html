@@ -13,6 +13,7 @@
     <script>
 
       $(document).ready(function(){
+        var visitor = 'YOU';
         var $body = $('body');
         $body.html('<h1><a>Twittler</a></h1>');
 
@@ -83,7 +84,7 @@
         $twittler.on('click', refresh);
 
         // action for when user name is clicked
-        $('.user a').on('click', function () {
+        $('.user').on('click', function () {
           // sets selectedUser variable to user clicked
           var selectedUser = $(this).closest('.tweet-box').data('user');
 
@@ -93,29 +94,66 @@
           }).toggle();
         });
 
-        $body.prepend('<div class="new-tweet-box"><button name="cancel">Cancel</button>'+
-          '<button name="submit">Tweet</button></div>');
+        //this generates the newTweetBox
+        $body.prepend('<div class="new-tweet-box"><form id="newTweetForm">'+
+          '<textarea name="words" id="words" maxlength="200" rows="4" cols="50">'+
+          '</textarea><div class="chars">0</div></form><div>'+
+          '<button name="cancel">Cancel</button><button name="submit">Tweet</button></div><div>');
+
+        // update remaining characters at every key raise.
+        $body.on('keyup', function () {
+          var count = document.getElementById("words").value.length;
+          $('.chars').text(140-count);
+          if (140-count < 0) {
+            $('.chars').css({color: 'red'});
+          } else {
+            $('.chars').css({color: 'black'})
+          };
+        });
+
+        // set quick references
         var $newTweetBox = $('.new-tweet-box');
         var $submit = $('button[name="submit"]');
         var $cancel = $('button[name="cancel"]');
+
+        // function for when new tweet button is pressed
         var showNewTweet = function () {
-          $newTweetBox.animate({top: '50%'});
+          // animate newTweetBox dropping down
+          $newTweetBox.animate({top: '300px'});
+          // dim background and logo
           $feed.animate({opacity: '.1'});
           $twittler.animate({opacity: '.6'});
           $body.css({'background-color': '#232f43'});
+          // set remaining character indicator to 140
+          $('.chars').text(140);
         };
 
+        // function for clicking away from newTweetBox
         var hideNewTweet = function () {
+          // slide box back off screen
           $newTweetBox.animate({top: '-150px'});
+          // undim background and logo
           $feed.animate({opacity: '1'});
           $twittler.animate({opacity: '1'});
           $body.css({'background-color': '#3C5071'});
 
+          // reset form
+          document.getElementById("newTweetForm").reset();
+        };
+
+        // functoin for submitting new tweet
+        var submitNewTweet = function(){
+          // calls write tweet function with content of textarea
+          writeTweet(document.getElementById("words").value);
+          // hides the newTweetBox then refreshes feed
+          hideNewTweet();
+          refresh();
         };
 
         $newTweet.on('click', showNewTweet); 
         $twittler.on('click', hideNewTweet);
-        $cancel.on('click', hideNewTweet);*/
+        $cancel.on('click', hideNewTweet);
+        $submit.on('click', submitNewTweet);
       });
 
     </script>
