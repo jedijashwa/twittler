@@ -55,9 +55,8 @@
         }
         $('.new').fadeIn();
 
-
-
-        $refresh.on('click', function () {
+        // function for getting new tweets.
+        var refresh = function () {
           var total = streams.home.length;
           var tBoxTop = -5 + 39 * (total-loaded);
           for (var i = loaded; i < total; i++){
@@ -69,7 +68,10 @@
             $('.tweet-box').css({top: -5});
             $('.new').fadeIn();
           });
-        });
+        };
+
+        $refresh.on('click', refresh);
+        $('h1').on('click', refresh);
 
         // action for when user name is clicked
         $('.user').on('click', function () {
