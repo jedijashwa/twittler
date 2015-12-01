@@ -90,6 +90,15 @@
           }).toggle();
         });
 
+        $body.prepend('<div class="new-tweet-box"></div>');
+        var $newTweetBox = $('.new-tweet-box');
+        var newTweet = function () {
+          $newTweetBox.animate({top: '50%'});
+          $feed.animate({opacity: '.1'});
+          $newTweetBox.css({opacity: '1'});
+        };
+
+        $newTweet.on('click', newTweet); 
       });
 
     </script>
